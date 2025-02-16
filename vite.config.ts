@@ -1,9 +1,10 @@
 import { svelteTesting } from '@testing-library/svelte/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import glsl from 'vite-plugin-glsl';
 
 export default defineConfig({
-	plugins: [sveltekit()],
+	plugins: [glsl(), sveltekit()],
 
 	test: {
 		workspace: [
