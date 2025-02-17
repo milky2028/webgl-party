@@ -7,18 +7,17 @@ if (!program) {
 }
 
 const position = gl.getAttribLocation(program, 'position');
-const positionBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+export const textureCoordinates = gl.getAttribLocation(program, 'texture_coordinates_in');
 
-export const resolution = gl.getUniformLocation(program, 'resolution');
-export const color = gl.getUniformLocation(program, 'color');
-
-const positions = [10, 20, 80, 20, 10, 30, 10, 30, 80, 20, 80, 30];
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+export const canvasSize = gl.getUniformLocation(program, 'canvas_size');
+export const image = gl.getUniformLocation(program, 'image');
 
 export const vertices = gl.createVertexArray();
 gl.bindVertexArray(vertices);
+
+export const positionBuffer = gl.createBuffer();
 gl.enableVertexAttribArray(position);
+gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
 const size = 2;
 const type = gl.FLOAT;
@@ -26,3 +25,23 @@ const normalize = false;
 const stride = 0;
 const offset = 0;
 gl.vertexAttribPointer(position, size, type, normalize, stride, offset);
+
+const textureCoordinatesBuffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordinatesBuffer);
+gl.bufferData(
+	gl.ARRAY_BUFFER,
+	new Float32Array([0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]),
+	gl.STATIC_DRAW
+);
+
+gl.enableVertexAttribArray(textureCoordinates);
+gl.vertexAttribPointer(textureCoordinates, size, type, normalize, stride, offset);
+
+const texture = gl.createTexture();
+gl.activeTexture(gl.TEXTURE0 + 0);
+gl.bindTexture(gl.TEXTURE_2D, texture);
+
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
