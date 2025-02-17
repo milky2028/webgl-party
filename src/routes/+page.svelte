@@ -3,8 +3,20 @@
 
 	let container: HTMLDivElement;
 
-	function onFileUpload(event: Event & { currentTarget: HTMLInputElement }) {
+	async function onFileUpload(event: Event & { currentTarget: HTMLInputElement }) {
 		const file = event.currentTarget?.files?.[0];
+
+		const { gl } = await import('$lib/context');
+		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+		gl.clearColor(0, 0, 0, 0);
+		gl.clear(gl.COLOR_BUFFER_BIT);
+
+		const { program, vertices } = await import('$lib/program');
+		gl.useProgram(program);
+		gl.bindVertexArray(vertices);
+
+		gl.drawArrays(gl.TRIANGLES, 0, 3);
 	}
 
 	let canvasMounted = false;
