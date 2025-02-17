@@ -18,6 +18,7 @@ export function compileShader(
 
 	const success: boolean = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
 	if (!success) {
+		gl.deleteShader(shader);
 		console.error(gl.getShaderInfoLog(shader));
 		return;
 	}
