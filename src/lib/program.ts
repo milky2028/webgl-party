@@ -10,17 +10,13 @@ import {
 } from 'twgl.js';
 
 export const info = createProgramInfo(gl, [vertexShaderSource, fragmentShaderSource]);
-
-const position = gl.getAttribLocation(info.program, 'position');
 export const positionBuffer = gl.createBuffer();
-gl.enableVertexAttribArray(position);
-gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
 gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 gl.useProgram(info.program);
 
 const buffers = createBufferInfoFromArrays(gl, {
+	position: { numComponents: 2, buffer: positionBuffer },
 	texture_coordinates_in: [0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]
 });
 
