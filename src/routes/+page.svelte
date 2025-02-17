@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { setRectangle } from '$lib/setRectangle';
 	import { createBuffer } from '$lib/createBuffer';
+	import { setUniforms } from 'twgl.js';
 
 	let container: HTMLDivElement;
 
@@ -59,7 +60,8 @@
 
 		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 		gl.useProgram(program.program);
-		gl.uniform2f(program.canvasSize, gl.canvas.width, gl.canvas.height);
+
+		setUniforms(program.info, { canvas_size: [gl.canvas.width, gl.canvas.height] });
 		gl.bindVertexArray(program.vertices);
 
 		draw(gl, program, homer);

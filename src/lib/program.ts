@@ -3,13 +3,12 @@ import vertexShaderSource from './shaders/vertexShader.glsl';
 import fragmentShaderSource from './shaders/fragmentShader.glsl';
 import { createProgramInfo } from 'twgl.js';
 
-export const programInfo = createProgramInfo(gl, [vertexShaderSource, fragmentShaderSource]);
-export const { program } = programInfo;
+export const info = createProgramInfo(gl, [vertexShaderSource, fragmentShaderSource]);
+export const { program } = info;
 
 const position = gl.getAttribLocation(program, 'position');
 export const textureCoordinates = gl.getAttribLocation(program, 'texture_coordinates_in');
 
-export const canvasSize = gl.getUniformLocation(program, 'canvas_size');
 export const image = gl.getUniformLocation(program, 'image');
 
 export const vertices = gl.createVertexArray();
