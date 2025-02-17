@@ -43,5 +43,8 @@
 		"onlyBuiltDependencies": [
 			"esbuild"
 		]
+	},
+	"dependencies": {
+		"twgl.js": "^5.5.4"
 	}
 }

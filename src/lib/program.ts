@@ -1,10 +1,9 @@
 import { gl } from './context';
-import { createProgram } from './createProgram';
+import vertexShaderSource from './shaders/vertexShader.glsl';
+import fragmentShaderSource from './shaders/fragmentShader.glsl';
+import { createProgramInfo } from 'twgl.js';
 
-export const program = createProgram(gl) as WebGLProgram;
-if (!program) {
-	throw new Error('Failed to create program.');
-}
+export const { program } = createProgramInfo(gl, [vertexShaderSource, fragmentShaderSource]);
 
 const position = gl.getAttribLocation(program, 'position');
 export const textureCoordinates = gl.getAttribLocation(program, 'texture_coordinates_in');
