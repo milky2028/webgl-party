@@ -5,7 +5,7 @@
 
 	let container: HTMLDivElement;
 
-	async function draw(
+	function draw(
 		gl: WebGL2RenderingContext,
 		program: typeof import('$lib/program'),
 		homer: { buffer: Uint8ClampedArray; x: number; y: number }
@@ -64,7 +64,7 @@
 		gl.uniform2f(program.canvasSize, gl.canvas.width, gl.canvas.height);
 		gl.bindVertexArray(program.vertices);
 
-		await draw(gl, program, homer);
+		draw(gl, program, homer);
 	}
 </script>
 
