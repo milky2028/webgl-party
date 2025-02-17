@@ -2,9 +2,10 @@ import { svelteTesting } from '@testing-library/svelte/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import glsl from 'vite-plugin-glsl';
+import crossOriginIsolation from 'vite-plugin-cross-origin-isolation';
 
 export default defineConfig({
-	plugins: [glsl(), sveltekit()],
+	plugins: [glsl(), sveltekit(), crossOriginIsolation()],
 
 	test: {
 		workspace: [

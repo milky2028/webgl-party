@@ -45,6 +45,8 @@
 			container.appendChild(canvas);
 			canvasMounted = true;
 		}
+
+		await Promise.all([import('$lib/context'), import('$lib/program')]);
 	});
 
 	async function onFile(event: Event & { currentTarget: HTMLInputElement }) {
