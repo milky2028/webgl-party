@@ -8,7 +8,7 @@ export const { program } = info;
 
 const position = gl.getAttribLocation(program, 'position');
 
-export const vertices = gl.createVertexArray();
+const vertices = gl.createVertexArray();
 gl.bindVertexArray(vertices);
 
 export const positionBuffer = gl.createBuffer();

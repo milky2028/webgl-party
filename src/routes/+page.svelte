@@ -47,7 +47,6 @@
 		gl.useProgram(program.program);
 
 		setUniforms(program.info, { canvas_size: [gl.canvas.width, gl.canvas.height] });
-		gl.bindVertexArray(program.vertices);
 
 		draw(gl, program, homer);
 	}
