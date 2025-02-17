@@ -3,20 +3,20 @@
 
 	let container: HTMLDivElement;
 
-	async function onFileUpload(event: Event & { currentTarget: HTMLInputElement }) {
-		const file = event.currentTarget?.files?.[0];
-
+	async function draw() {
 		const { gl } = await import('$lib/context');
 		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
 		gl.clearColor(0, 0, 0, 0);
-		gl.clear(gl.COLOR_BUFFER_BIT);
+		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-		const { program, vertices } = await import('$lib/program');
+		const { program, vertices, resolution } = await import('$lib/program');
 		gl.useProgram(program);
-		gl.bindVertexArray(vertices);
 
-		gl.drawArrays(gl.TRIANGLES, 0, 3);
+		gl.bindVertexArray(vertices);
+		gl.uniform2f(resolution, gl.canvas.width, gl.canvas.height);
+
+		gl.drawArrays(gl.TRIANGLES, 0, 6);
 	}
 
 	let canvasMounted = false;
@@ -26,16 +26,16 @@
 			container.appendChild(canvas);
 			canvasMounted = true;
 		}
+
+		await draw();
 	});
 </script>
 
 <style>
 	:global(#rendering-canvas) {
-		width: 800px;
-		height: 500px;
 		border: 1px solid blueviolet;
 	}
 </style>
 
 <div bind:this={container}></div>
-<input type="file" onchange={onFileUpload} />
+<input type="file" />

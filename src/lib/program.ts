@@ -10,7 +10,9 @@ const position = gl.getAttribLocation(program, 'position');
 const positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
-const positions = [0, 0, 0, 0.5, 0.7, 0];
+export const resolution = gl.getUniformLocation(program, 'resolution');
+
+const positions = [10, 20, 80, 20, 10, 30, 10, 30, 80, 20, 80, 30];
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
 export const vertices = gl.createVertexArray();
