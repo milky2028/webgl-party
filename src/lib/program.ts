@@ -4,9 +4,8 @@ import fragmentShaderSource from './shaders/fragmentShader.glsl';
 import { createBufferInfoFromArrays, createProgramInfo, setBuffersAndAttributes } from 'twgl.js';
 
 export const info = createProgramInfo(gl, [vertexShaderSource, fragmentShaderSource]);
-export const { program } = info;
 
-const position = gl.getAttribLocation(program, 'position');
+const position = gl.getAttribLocation(info.program, 'position');
 
 const vertices = gl.createVertexArray();
 gl.bindVertexArray(vertices);
