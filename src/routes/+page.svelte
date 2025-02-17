@@ -10,11 +10,12 @@
 		gl.clearColor(0, 0, 0, 0);
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-		const { program, vertices, resolution } = await import('$lib/program');
+		const { program, vertices, resolution, color } = await import('$lib/program');
 		gl.useProgram(program);
 
 		gl.bindVertexArray(vertices);
 		gl.uniform2f(resolution, gl.canvas.width, gl.canvas.height);
+		gl.uniform4f(color, 138 / 255, 43 / 255, 226 / 255, 1);
 
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
 	}

@@ -11,6 +11,7 @@ const positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
 export const resolution = gl.getUniformLocation(program, 'resolution');
+export const color = gl.getUniformLocation(program, 'color');
 
 const positions = [10, 20, 80, 20, 10, 30, 10, 30, 80, 20, 80, 30];
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
