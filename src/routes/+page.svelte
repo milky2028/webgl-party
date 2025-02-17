@@ -8,7 +8,7 @@
 	function draw(
 		gl: WebGL2RenderingContext,
 		program: typeof import('$lib/program'),
-		homer: { buffer: Uint8ClampedArray; x: number; y: number }
+		image: { buffer: Uint8ClampedArray; x: number; y: number }
 	) {
 		const start = performance.now();
 
@@ -20,18 +20,18 @@
 			gl.TEXTURE_2D,
 			mipLevel,
 			internalFormat,
-			homer.x,
-			homer.y,
+			image.x,
+			image.y,
 			0,
 			srcFormat,
 			srcType,
-			homer.buffer
+			image.buffer
 		);
 
 		gl.uniform1i(program.image, 0);
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, program.positionBuffer);
-		setRectangle(gl, 0, 0, homer.x, homer.y);
+		setRectangle(gl, 0, 0, image.x, image.y);
 
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
 
