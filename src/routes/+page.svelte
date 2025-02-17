@@ -43,11 +43,6 @@
 			createBuffer(file)
 		]);
 
-		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-		gl.useProgram(program.info.program);
-
-		setUniforms(program.info, { canvas_size: [gl.canvas.width, gl.canvas.height] });
-
 		draw(gl, program, homer);
 	}
 </script>
