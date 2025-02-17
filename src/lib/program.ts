@@ -3,7 +3,8 @@ import vertexShaderSource from './shaders/vertexShader.glsl';
 import fragmentShaderSource from './shaders/fragmentShader.glsl';
 import { createProgramInfo } from 'twgl.js';
 
-export const { program } = createProgramInfo(gl, [vertexShaderSource, fragmentShaderSource]);
+export const programInfo = createProgramInfo(gl, [vertexShaderSource, fragmentShaderSource]);
+export const { program } = programInfo;
 
 const position = gl.getAttribLocation(program, 'position');
 export const textureCoordinates = gl.getAttribLocation(program, 'texture_coordinates_in');
