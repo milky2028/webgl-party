@@ -17,7 +17,7 @@
 		setUniforms(program.info, { image: texture });
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, program.positionBuffer);
-		setRectangle(gl, 0, 0, image.x, image.y);
+		setRectangle(gl, image.x, image.y);
 
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
 

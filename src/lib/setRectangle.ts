@@ -1,18 +1,7 @@
-export function setRectangle(
-	gl: WebGL2RenderingContext,
-	x: number,
-	y: number,
-	width: number,
-	height: number
-) {
-	const x1 = x;
-	const x2 = x + width;
-	const y1 = y;
-	const y2 = y + height;
-
+export function setRectangle(gl: WebGL2RenderingContext, width: number, height: number) {
 	gl.bufferData(
 		gl.ARRAY_BUFFER,
-		new Float32Array([x1, y1, x2, y1, x1, y2, x1, y2, x2, y1, x2, y2]),
+		new Float32Array([0, 0, width, 0, 0, height, 0, height, width, 0, width, height]),
 		gl.STATIC_DRAW
 	);
 }
