@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { setRectangle } from '$lib/setRectangle';
 	import { createBuffer } from '$lib/createBuffer';
-	import { setUniforms } from 'twgl.js';
+	import { createTexture, setUniforms } from 'twgl.js';
 
 	let container: HTMLDivElement;
 
@@ -13,23 +13,8 @@
 	) {
 		const start = performance.now();
 
-		const mipLevel = 0;
-		const internalFormat = gl.RGBA;
-		const srcFormat = gl.RGBA;
-		const srcType = gl.UNSIGNED_BYTE;
-		gl.texImage2D(
-			gl.TEXTURE_2D,
-			mipLevel,
-			internalFormat,
-			image.x,
-			image.y,
-			0,
-			srcFormat,
-			srcType,
-			image.buffer
-		);
-
-		gl.uniform1i(program.image, 0);
+		const texture = createTexture(gl, { src: image.buffer, width: image.x, height: image.y });
+		setUniforms(program.info, { image: texture });
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, program.positionBuffer);
 		setRectangle(gl, 0, 0, image.x, image.y);

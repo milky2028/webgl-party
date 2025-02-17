@@ -9,8 +9,6 @@ export const { program } = info;
 const position = gl.getAttribLocation(program, 'position');
 export const textureCoordinates = gl.getAttribLocation(program, 'texture_coordinates_in');
 
-export const image = gl.getUniformLocation(program, 'image');
-
 export const vertices = gl.createVertexArray();
 gl.bindVertexArray(vertices);
 
