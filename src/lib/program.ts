@@ -1,13 +1,12 @@
 import { gl } from './context';
 import vertexShaderSource from './shaders/vertexShader.glsl';
 import fragmentShaderSource from './shaders/fragmentShader.glsl';
-import { createProgramInfo } from 'twgl.js';
+import { createBufferInfoFromArrays, createProgramInfo, setBuffersAndAttributes } from 'twgl.js';
 
 export const info = createProgramInfo(gl, [vertexShaderSource, fragmentShaderSource]);
 export const { program } = info;
 
 const position = gl.getAttribLocation(program, 'position');
-export const textureCoordinates = gl.getAttribLocation(program, 'texture_coordinates_in');
 
 export const vertices = gl.createVertexArray();
 gl.bindVertexArray(vertices);
@@ -23,13 +22,7 @@ const stride = 0;
 const offset = 0;
 gl.vertexAttribPointer(position, size, type, normalize, stride, offset);
 
-const textureCoordinatesBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordinatesBuffer);
-gl.bufferData(
-	gl.ARRAY_BUFFER,
-	new Float32Array([0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]),
-	gl.STATIC_DRAW
-);
-
-gl.enableVertexAttribArray(textureCoordinates);
-gl.vertexAttribPointer(textureCoordinates, size, type, normalize, stride, offset);
+const buffers = createBufferInfoFromArrays(gl, {
+	texture_coordinates_in: [0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]
+});
+setBuffersAndAttributes(gl, info, buffers);
