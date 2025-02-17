@@ -6,10 +6,12 @@
 
 	let container: HTMLDivElement;
 
-	async function draw() {
-		const { gl } = await import('$lib/context');
-		const homer = await createImage(homerUrl);
-		const { program, vertices, canvasSize, image, positionBuffer } = await import('$lib/program');
+	async function draw(
+		gl: WebGL2RenderingContext,
+		program: typeof import('$lib/program'),
+		homer: HTMLImageElement
+	) {
+		const start = performance.now();
 
 		const mipLevel = 0;
 		const internalFormat = gl.RGBA;
@@ -17,21 +19,14 @@
 		const srcType = gl.UNSIGNED_BYTE;
 		gl.texImage2D(gl.TEXTURE_2D, mipLevel, internalFormat, srcFormat, srcType, homer);
 
-		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+		gl.uniform1i(program.image, 0);
 
-		gl.clearColor(0, 0, 0, 0);
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-		gl.useProgram(program);
-
-		gl.bindVertexArray(vertices);
-		gl.uniform2f(canvasSize, gl.canvas.width, gl.canvas.height);
-		gl.uniform1i(image, 0);
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+		gl.bindBuffer(gl.ARRAY_BUFFER, program.positionBuffer);
 		setRectangle(gl, 0, 0, homer.width, homer.height);
 
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+		console.log(performance.now() - start);
 	}
 
 	let canvasMounted = false;
@@ -42,7 +37,18 @@
 			canvasMounted = true;
 		}
 
-		await draw();
+		const [{ gl }, program, homer] = await Promise.all([
+			import('$lib/context'),
+			import('$lib/program'),
+			createImage(homerUrl)
+		]);
+
+		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+		gl.useProgram(program.program);
+		gl.uniform2f(program.canvasSize, gl.canvas.width, gl.canvas.height);
+		gl.bindVertexArray(program.vertices);
+
+		await draw(gl, program, homer);
 	});
 </script>
 
