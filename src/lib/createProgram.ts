@@ -3,7 +3,7 @@ import { fragmentShader, vertexShader } from './shaders';
 export function createProgram(gl: WebGL2RenderingContext) {
 	const program = gl.createProgram();
 	if (!vertexShader || !fragmentShader) {
-		console.log('Failed to initialize shaders.');
+		console.error('Failed to initialize shaders.');
 		return;
 	}
 
